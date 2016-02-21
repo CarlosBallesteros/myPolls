@@ -29,6 +29,7 @@ export default class PollVote extends Component {
 
   handleVoteClick(idPoll, idEntry) {
     this.props.voteEntry(idPoll, idEntry);
+    this.forceUpdate();
   }
 
   totalVotes(entries) {
@@ -51,11 +52,13 @@ export default class PollVote extends Component {
     const alreadyVoted = votedArray.filter( value => value === auth.id ).length !== 0;
     const message = !auth.authenticated
       ? 'You need to sign in to vote....'
-      : poll.isClosed === true
-        ? 'Poll closed, no more votes accepted'
-        : alreadyVoted
-          ? 'You have voted'
-          : 'Vote now!';
+      : auth.id === this.props.owner
+        ? 'This is your poll, do what you will'
+        : poll.isClosed === true
+          ? 'Poll closed, no more votes accepted'
+          : alreadyVoted
+            ? 'You have voted'
+            : 'Vote now!';
     const entries = poll.entries || {};
     const total = this.totalVotes(entries);
     const contents = this.state.loading ? <Spinner /> : <div>
@@ -63,6 +66,11 @@ export default class PollVote extends Component {
             <h4>
               <div>
                 Poll: { poll.title }
+              </div>
+            </h4>
+            <h4>
+              <div>
+                Owned by: { auth.id === this.props.owner ? 'You!' : this.props.owner }
               </div>
             </h4>
             <h5>
@@ -77,14 +85,14 @@ export default class PollVote extends Component {
               <h4>Entries</h4>
               <ul className="list-group">
                 {
-                  Object.keys(entries).map( (id, index) =>
-                    <li className="list-group-item" key={index}>
+                  Object.keys(entries).sort( (a, b) => entries[b].votes - entries[a].votes).map( (id, index) => {
+                    return (<li className="list-group-item" key={index}>
                       { entries[id].title }
-                      { message === 'Vote now!' ? <span onClick={ () => this.handleVoteClick(poll.id, id) } className="action-element glyphicon glyphicon-arrow-up"/> : null }
+                      { auth.id === this.props.owner || message === 'Vote now!' ? <span onClick={ () => this.handleVoteClick(poll.id, id) } className="action-element glyphicon glyphicon-arrow-up"/> : null }
                       <br/>
                       { this.createProgressBar(entries[id], total, index) }
-                    </li>
-                  )
+                    </li>);
+                  })
                 }
              </ul>
         </div>
@@ -99,9 +107,12 @@ export default class PollVote extends Component {
 
 PollVote.propTypes = {
   auth: PropTypes.object,
+  owner: PropTypes.string,
   poll: PropTypes.object.isRequired,
   voteEntry: PropTypes.func.isRequired,
   params: PropTypes.object.isRequired,
   registerListeners: PropTypes.func.isRequired,
-  unregisterListeners: PropTypes.func.isRequired
+  unregisterListeners: PropTypes.func.isRequired,
+  registerOwnerListeners: PropTypes.func,
+  unregisterOwnerListeners: PropTypes.func
  };

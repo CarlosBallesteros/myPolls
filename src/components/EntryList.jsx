@@ -10,12 +10,21 @@ export default class EntryList extends Component {
     const { poll, addEntry } = this.props;
     const node = this.refs.title;
     const title =  node.value.trim();
-    addEntry(poll.id, title);
+    if (title.length > 0) {
+      addEntry(poll.id, title);
+    }
     node.value = '';
   }
 
   handleRemoveButtonClick(idPoll, idEntry) {
     this.props.removeEntry(idPoll, idEntry);
+  }
+
+  handleOnTitleKeyDown(event) {
+    const ENTER_KEY = 13;
+    if (event.keyCode === ENTER_KEY) {
+      this.handleAddButtonClick();
+    }
   }
 
   render() {
@@ -36,7 +45,7 @@ export default class EntryList extends Component {
             }
          </ul>
           <div className="input-group">
-            <input type="text" className="form-control" placeholder="Entry Title" ref="title"/>
+            <input type="text" className="form-control" placeholder="Entry Title" ref="title" onKeyDown={e => this.handleOnTitleKeyDown(e)} />
             <span className="input-group-btn">
               <button className="btn btn-info" type="button" onClick={e => this.handleAddButtonClick(e)}>Add Entry</button>
             </span>

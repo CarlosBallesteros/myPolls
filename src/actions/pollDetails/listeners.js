@@ -5,6 +5,19 @@ import { addNotification } from '../notify/actions';
 export function registerListeners(params) {
   return (dispatch, getState) => {
     const { firebase, auth } = getState();
+    firebase.child('myPolls').once('value', snapshot => {
+      if (snapshot.exists()) {
+        const users = Object.keys(snapshot.val());
+        users.map( username => {
+          if (Object.keys(snapshot.val()[username]).indexOf(params.idPoll) !== -1) {
+            dispatch({
+              type: 'SET_OWNER',
+              owner: username
+            });
+          }
+        });
+      }
+    });
     const ref = firebase.child(`polls/${params.idPoll}`);
     ref.on('value', snapshot => {
       firebase.child(`myPolls/${auth.id}`).once('value', snapshot2 => {
@@ -56,3 +69,27 @@ export function unregisterListeners(params) {
     });
   };
 }
+
+/*EXAMPLE OF PROMISE
+new Promise( resolve => {
+  firebase.child('myPolls').once('value', snapshot => {
+    if (snapshot.exists()) {
+      const users = Object.keys(snapshot.val());
+      const owner = users.map( username => {
+        if (Object.keys(snapshot.val()[username]).indexOf(params.idPoll) !== -1) {
+          return username;
+        }
+      });
+      resolve(owner[0]);
+    }
+  });
+}).then( owner => {
+  dispatch(snapshot.exists() ?
+    {
+      type: SET_POLL,
+      poll: Object.assign({}, { owner: owner, id: params.idPoll, isHidden, isClosed }, newPoll)
+    } :
+    pushState(null, '/')
+  );
+});
+*/

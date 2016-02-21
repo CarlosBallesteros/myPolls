@@ -39,8 +39,9 @@ export default class PollDetails extends Component {
     this.setState({
       editing: false
     });
-
-    editPollTitle(poll.id, node.value.trim());
+    if (node.value.trim().length > 0) {
+      editPollTitle(poll.id, node.value.trim());
+    }
   }
 
   handleCloseClick() {

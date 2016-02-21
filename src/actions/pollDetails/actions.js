@@ -83,7 +83,7 @@ export function voteEntry(idPoll, idEntry) {
                   payload: error,
               });
             }
-          });
+          }, false);
           firebase.child(`polls/${idPoll}/voted`).push(userId);
         }
       });
