@@ -46,6 +46,14 @@ export default class PollVote extends Component {
     );
   }
 
+  handleCloseClick() {
+    this.props.closePoll(this.props.poll.id);
+  }
+
+  handleHideClick() {
+    this.props.hidePoll(this.props.poll.id);
+  }
+
   render() {
     const { poll, auth } = this.props;
     const votedArray = poll.voted ? Object.values(poll.voted) : [];
@@ -77,8 +85,12 @@ export default class PollVote extends Component {
               <div>
                 { message }
               </div>
-              <div>
-              </div>
+                { auth.id === this.props.owner ? (
+                <div>
+                  <button className="btn btn-danger pull-left" type="button" onClick={() => this.handleCloseClick()}>{poll.isClosed ? 'Open' : 'Close'}</button>
+                  <button style={{'marginLeft': '10px'}} className="btn btn-default pull-left" type="button" onClick={() => this.handleHideClick()}>{poll.isHidden ? 'Show' : 'Hide'}</button>
+                </div>
+                ) : null }
             </h5>
              </div>
             <div className="panel-body">
@@ -109,6 +121,8 @@ PollVote.propTypes = {
   auth: PropTypes.object,
   owner: PropTypes.string,
   poll: PropTypes.object.isRequired,
+  closePoll: PropTypes.func,
+  hidePoll: PropTypes.func,
   voteEntry: PropTypes.func.isRequired,
   params: PropTypes.object.isRequired,
   registerListeners: PropTypes.func.isRequired,
