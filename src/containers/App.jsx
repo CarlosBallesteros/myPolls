@@ -9,11 +9,22 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { alert: false };
   }
 
   componentWillMount() {
     this.props.registerNotificationsListeners();
     this.props.registerUsersListener();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.alert !== this.props.alert && newProps.alert !== '') {
+      this.setState({ alert: true });
+      setTimeout(() => {
+        this.setState({ alert: false });
+        this.props.throwAlert('');
+      }, 4000);
+    }
   }
 
   componentWillUnmount() {
@@ -32,6 +43,13 @@ class App extends Component {
           </div>
         </div>
         {children}
+        {
+          this.state.alert ? (
+            <div className="alert animated fadeInRight" style={{ marginTop: '1%', 'marginBottom': '1%', position: 'absolute', bottom: '0%', right: '50%', opacity: 0.8}}>
+              <div className="alert alert-danger warning" role="alert">{ this.props.alert }</div>
+            </div>
+          ) : null
+        }
       </div>
     );
   }
@@ -39,6 +57,8 @@ class App extends Component {
 
 App.propTypes = {
   // Injected by React RouterConfirmDialog
+  alert: PropTypes.string,
+  throwAlert: PropTypes.func,
   registerUsersListener: PropTypes.func,
   unregisterUsersListener: PropTypes.func,
   registerNotificationsListeners: PropTypes.func,
@@ -48,6 +68,6 @@ App.propTypes = {
 };
 
 export default connect(
-  state => ({ auth: state.auth }),
+  state => ({ auth: state.auth, alert: state.alert }),
   notificationActions
 )(App);

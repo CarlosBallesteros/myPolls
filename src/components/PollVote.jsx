@@ -70,9 +70,6 @@ export default class PollVote extends Component {
                 { message }
               </div>
               <div>
-                <div className="alert animated fadeInRight" style={{ marginTop: '1%', 'marginBottom': '1%', position: 'absolute', bottom: '0%', right: '50%', opacity: 0.8}}>
-                  <div className="alert alert-danger" role="alert">Please vote!</div>
-                </div>
               </div>
             </h5>
              </div>

@@ -36,25 +36,17 @@ export function unregisterNotificationsListeners() {
 }
 
 export function registerUsersListener() {
-  return (dispatch, getState) => {
-    const { firebase } = getState();
-    firebase.child('users').on('value', snapshot => {
-      const firebaseUsers = snapshot.val() || {};
-      const firebaseUsersArray = Object.keys(firebaseUsers);
-      const localUsersArray = Object.keys(tokens);
-      const totalUsersArray = [...firebaseUsersArray, ...localUsersArray];
-      dispatch({
-        type: SET_USERS,
-        users: totalUsersArray
-      });
+  return (dispatch) => {
+    const users = Object.keys(tokens);
+    dispatch({
+      type: SET_USERS,
+      users: users
     });
   };
 }
 
 export function unregisterUsersListener() {
-  return (dispatch, getState) => {
-    const { firebase } = getState();
-    firebase.child('users').off();
+  return (dispatch) => {
     dispatch({
       type: SET_USERS,
       users: []

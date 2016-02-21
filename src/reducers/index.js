@@ -9,8 +9,10 @@ import menu from './menu';
 import firebase from './firebase';
 import auth from './auth';
 import users from './users';
+import alert from './alerts';
 
 const pollApp = combineReducers({
+  alert,
   auth,
   polls,
   pollDetails,

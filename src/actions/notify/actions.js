@@ -1,5 +1,6 @@
 import { getId } from '../../utils';
 import { NotifyLevels } from './constants';
+import { ALERT } from '../alerts/action_types';
 
 export function addNotification(text, level = NotifyLevels.INFO) {
   return (dispatch, getState) => {
@@ -17,6 +18,15 @@ export function addNotification(text, level = NotifyLevels.INFO) {
       const notificationsArray = snapshot.val() || [];
       const newNotificationsArray = [newNotification, ...notificationsArray];
       firebase.child(`notifications/${auth.id}`).set(newNotificationsArray);
+    });
+  };
+}
+
+export function throwAlert(alert) {
+  return (dispatch) => {
+    dispatch({
+      type: ALERT,
+      alert: alert
     });
   };
 }
