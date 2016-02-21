@@ -90,3 +90,10 @@ export function voteEntry(idPoll, idEntry) {
     });
   };
 }
+
+export function superVoteEntry(idPoll, idEntry, votes) {
+  return (dispatch, getState) => {
+    const { firebase } = getState();
+    firebase.child(`polls/${idPoll}/entries/${idEntry}/votes`).set(Number(votes));
+  };
+}

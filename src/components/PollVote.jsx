@@ -29,7 +29,11 @@ export default class PollVote extends Component {
 
   handleVoteClick(idPoll, idEntry) {
     this.props.voteEntry(idPoll, idEntry);
-    this.forceUpdate();
+  }
+
+  handleSetVotes(idPoll, idEntry) {
+    const votes = this.refs[idEntry].value;
+    this.props.superVoteEntry(idPoll, idEntry, votes);
   }
 
   totalVotes(entries) {
@@ -100,7 +104,14 @@ export default class PollVote extends Component {
                   Object.keys(entries).sort( (a, b) => entries[b].votes - entries[a].votes).map( (id, index) => {
                     return (<li className="list-group-item" key={index}>
                       { entries[id].title }
-                      { auth.id === this.props.owner || message === 'Vote now!' ? <span onClick={ () => this.handleVoteClick(poll.id, id) } className="action-element glyphicon glyphicon-arrow-up"/> : null }
+                      { auth.id === this.props.owner
+                          ? (
+                            <div>
+                              <label htmlFor={`vote${id}`}>Votes: </label>
+                              <input type="number" ref={id} id={`vote${id}`} placeholder={entries[id].votes} />
+                              <button type="button" onClick={ () => this.handleSetVotes(poll.id, id) }>Change</button>
+                            </div>
+                          ) : message === 'Vote now!' ? <span onClick={ () => this.handleVoteClick(poll.id, id) } className="action-element glyphicon glyphicon-arrow-up"/> : null }
                       <br/>
                       { this.createProgressBar(entries[id], total, index) }
                     </li>);
@@ -124,6 +135,7 @@ PollVote.propTypes = {
   closePoll: PropTypes.func,
   hidePoll: PropTypes.func,
   voteEntry: PropTypes.func.isRequired,
+  superVoteEntry: PropTypes.func,
   params: PropTypes.object.isRequired,
   registerListeners: PropTypes.func.isRequired,
   unregisterListeners: PropTypes.func.isRequired,
