@@ -22,14 +22,14 @@ export function editPollTitle(idPoll, title) {
 export function hidePoll(idPoll) {
   return (dispatch, getState) => {
     const { firebase } = getState();
-    firebase.child(`polls/${idPoll}/isHidden`).set(true);
+    firebase.child(`polls/${idPoll}/isHidden`).transaction( snapshot => !snapshot, () => {}, false);
   };
 }
 
 export function closePoll(idPoll) {
   return (dispatch, getState) => {
     const { firebase } = getState();
-    firebase.child(`polls/${idPoll}/isClosed`).set(true);
+    firebase.child(`polls/${idPoll}/isClosed`).transaction( snapshot => !snapshot, () => {}, false);
   };
 }
 

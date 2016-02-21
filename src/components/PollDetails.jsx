@@ -69,8 +69,8 @@ export default class PollDetails extends Component {
               </span>
             </div>
           </h3>
-          <button className="btn btn-danger" type="button" onClick={() => this.handleCloseClick()}>Close</button>
-          <button style={{'marginLeft': '10px'}} className="btn btn-default pull-right" type="button" onClick={() => this.handleHideClick()}>Hide</button>
+          <button style={{'marginLeft': '10px'}} className="btn btn-default pull-right" type="button" onClick={() => this.handleHideClick()}>{this.props.poll.isHidden ? 'Show' : 'Hide'}</button>
+          <button className="btn btn-danger pull-right" type="button" onClick={() => this.handleCloseClick()}>{this.props.poll.isClosed ? 'Open' : 'Close'}</button>
       </div>
     );
   }

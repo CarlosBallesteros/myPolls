@@ -122,3 +122,159 @@ div {
   background:#e3f7fc url('../images/notice.png') no-repeat 10px 50%;
   border:1px solid #8ed9f6;
 }
+
+/*MEDIA QUERIES*/
+@media all and (max-width: 1024px) {...}
+@media not screen and (color) {...}
+@media only screen and (orientation: portrait) {...}
+@media all and (min-device-aspect-ratio: 16/9) {...}
+
+/*FLEX-BOX*/
+.container {
+  display: flex; /* or inline-flex */
+}
+
+.container {
+  flex-direction: row | row-reverse | column | column-reverse;
+}
+
+.container{
+  flex-wrap: nowrap | wrap | wrap-reverse;
+}
+
+flex-flow: <‘flex-direction’> || <‘flex-wrap’>
+
+.container {
+  justify-content: flex-start | flex-end | center | space-between | space-around;
+}
+
+.container {
+  align-items: flex-start | flex-end | center | baseline | stretch;
+}
+
+.container {
+  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+}
+
+.item {
+  order: <integer>;
+}
+
+.item {
+  flex-grow: <number>; /* default 0 */
+}
+
+.item {
+  flex-shrink: <number>; /* default 1 */
+}
+
+.item {
+  flex-basis: <length> | auto; /* default auto */
+}
+
+.item {
+  flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+}
+
+.item {
+  align-self: auto | flex-start | flex-end | center | baseline | stretch;
+}
+
+/*SELECTORS*/
+.parent .child
+.parent > .directChild
+.sibling ~ .otherSibling
+.sibling + .adjacentSibling7
+
+.tag[attribute]
+.tag[attribute="exact"]
+.tag[attribute*="contains"]
+.tag[attribute^="begins"]
+.tag[attribute$="ends"]
+.tag[attribute~="spaced"]
+.tag[attribute|="hyphenated"]
+
+.link:link
+.link:hover
+.link:focus
+.link:active
+.link:visited
+.input:enabled
+.input:disabled
+.input:checked
+.input:indeterminate
+
+.tag:first-child
+.tag:last-child
+.tag:only-child
+.tag:nth-child(3n+2)
+.tag:nth-last-child(-n+3)
+
+.tag:first-of-type
+.tag:last-of-type
+.tag:only-of-type
+.tag:nth-of-type(n)
+.tag:nth-last-of-type(n)
+
+.tag:empty
+div:not(.tag)
+
+.tag:first-letter
+.tag:first-line
+
+.tag::selection
+
+.tag:before
+.tag:after
+
+/*SASS*/
+.parent
+  color: blue;
+  &:hover
+    color: red;
+
+$variable: 1em
+p
+  font: $variable
+
+$location: chicago
+$offset: left
+.#{$location}
+  #{$offset}: 20px
+
+width: 40px + 6
+width: 100px / 10
+width: percentage(2.5)
+width: round(2.5px)
+width: ceil(2.5px)
+width: floor(2.5px)
+width: abs(-2.5px)
+
+.tag1
+  border-radius: 10px
+.tag2
+  @extend .tag1
+  background: #f2dede
+
+$variable: true
+.tag
+  @if $variable == true
+    background: #ff7b29
+  @else if $variable == false
+    background: #0087cc
+  @else
+    background: #333
+
+@for $col from 1 to 6
+  .col-#{$col}
+    width: 40px * $col
+
+@each $class in uxd, rails, html, css
+  .#{$class}-logo
+    background: url("/img/#{$class}.jpg")
+
+$heading: 1
+@while $heading <= 6
+  h#{$heading}
+    font-size: 2em - ($heading * .25em)
+  $heading: $heading + 1
