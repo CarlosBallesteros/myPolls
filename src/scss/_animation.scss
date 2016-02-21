@@ -1,0 +1,48 @@
+.animated {
+  -webkit-animation-name: animation01;
+  animation-name: animation01;
+  -webkit-animation-duration: 4s;
+  animation-duration: 4s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes animation01 {
+  0% {
+    transform: rotateX(90deg);
+  }
+  25%{
+  	opacity: 0.8;
+  }
+  75%{
+  	opacity: 0.8;
+  }
+  100% {
+    transform: rotateX(90deg);
+  }
+}
+
+@keyframes animation01 {
+  0% {
+		transform-origin: bottom left;
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+  25%{
+		transform-origin: bottom left;
+  	transform: rotateX(0deg);
+  	opacity: 0.8;
+  }
+  75%{
+		transform-origin: bottom left;
+  	transform: rotateX(0deg);
+  	opacity: 0.8;
+  }
+  100% {
+		transform-origin: bottom left;
+    transform: rotateX(90deg);
+    opacity: 0;
+  }
+}

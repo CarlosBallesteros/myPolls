@@ -69,6 +69,11 @@ export default class PollVote extends Component {
               <div>
                 { message }
               </div>
+              <div>
+                <div className="alert animated fadeInRight" style={{ marginTop: '1%', 'marginBottom': '1%', position: 'absolute', bottom: '0%', right: '50%', opacity: 0.8}}>
+                  <div className="alert alert-danger" role="alert">Please vote!</div>
+                </div>
+              </div>
             </h5>
              </div>
             <div className="panel-body">
@@ -78,7 +83,7 @@ export default class PollVote extends Component {
                   Object.keys(entries).map( (id, index) =>
                     <li className="list-group-item" key={index}>
                       { entries[id].title }
-                      <span onClick={ () => this.handleVoteClick(poll.id, id) } className="action-element glyphicon glyphicon-arrow-up"/>
+                      { message === 'Vote now!' ? <span onClick={ () => this.handleVoteClick(poll.id, id) } className="action-element glyphicon glyphicon-arrow-up"/> : null }
                       <br/>
                       { this.createProgressBar(entries[id], total, index) }
                     </li>

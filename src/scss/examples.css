@@ -1,0 +1,124 @@
+/*TRANSFORMS*/
+div {
+  -webkit-transform: scale(1.5);
+     -moz-transform: scale(1.5);
+       -o-transform: scale(1.5);
+          transform: scale(1.5);
+
+  transform: rotate(20deg);
+  transform: rotateX(20deg);
+  transform: rotateY(20deg);
+  transform: rotateZ(20deg);
+
+  transform: scale(.75);
+  transform: scaleX(.5);
+  transform: scaleY(1.15);
+  transform: scaleZ(1.15);
+
+  transform: translate(-10px, 25%);
+  transform: translateX(-10px);
+  transform: translateY(25%);
+  transform: translateZ(25%);
+
+  transform: skew(5deg, -20deg);
+  transform: skewX(5deg);
+  transform: skewY(-20deg);
+
+  transform: rotate(25deg) translate(-10px, 25%);
+
+  transform-origin: 0 0;
+  transform-origin: 100% 100%;
+  transform-origin: top left;
+  transform-origin: 20px 50px;
+
+  perspective: 200px;
+  transform: rotateX(45deg);
+
+  transform: perspective(200px) rotateX(45deg);
+  transform: perspective(200px) rotateX(45deg) rotateY(45deg) rotateZ(45deg);
+
+  perspective-origin: 0 0;
+  perspective-origin: 75% 75%;
+  perspective-origin: 20px 40px;
+
+  transform-style: preserve-3d, flat;
+
+
+  backface-visibility: hidden;
+}
+
+/*TRANSITIONS*/
+div {
+  -webkit-transition-property: background;
+     -moz-transition-property: background;
+       -o-transition-property: background;
+          transition-property: background;
+
+  transition-property: background, border-radius;
+  transition-duration: .2s, 1s;
+  transition-timing-function: linear, ease-in, ease-out, ease-in-out;
+  transition-delay: 0s, 1s;
+
+  transition: background .2s linear, border-radius 1s ease-in 1s;
+}
+
+/*ANIMATIONS*/
+@-moz-keyframes
+@-o-keyframes
+@-webkit-keyframes
+@keyframes animationName {
+  0% {
+    left: 0;
+    top: 0;
+  }
+  50% {
+    left: 244px;
+    top: 100px;
+  }
+  100% {
+    left: 488px;
+    top: 0;
+  }
+}
+
+div {
+  animation-name: animationName;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-delay: .5s;
+  animation-iteration-count: infinite;
+  animation-direction: normal, reverse, alternate, alternate-reverse;
+  animation-play-state: running, paused;
+  animation-fill-mode: none, forwards, backwards, both;
+
+  animation: animationName 2s ease-in-out .5s infinite alternate;
+}
+
+/*WEIRD NOTIFICATIONS*/
+.alert-box {
+  color:#555;
+  border-radius:10px;
+  font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+  padding:10px 36px;
+  margin:10px;
+}
+.alert-box span {
+  font-weight:bold;
+  text-transform:uppercase;
+}
+.error {
+  background:#ffecec url('../images/error.png') no-repeat 10px 50%;
+  border:1px solid #f5aca6;
+}
+.success {
+  background:#e9ffd9 url('../images/success.png') no-repeat 10px 50%;
+  border:1px solid #a6ca8a;
+}
+.warning {
+  background:#fff8c4 url('../images/warning.png') no-repeat 10px 50%;
+  border:1px solid #f2c779;
+}
+.notice {
+  background:#e3f7fc url('../images/notice.png') no-repeat 10px 50%;
+  border:1px solid #8ed9f6;
+}
